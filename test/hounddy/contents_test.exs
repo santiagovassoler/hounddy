@@ -1,4 +1,4 @@
-defmodule Hounddy.ContentTest do
+defmodule Hounddy.ContentsTest do
   use Hounddy.DataCase
 
   alias Hounddy.Content
@@ -124,8 +124,16 @@ defmodule Hounddy.ContentTest do
   describe "educations" do
     alias Hounddy.Content.Education
 
-    @valid_attrs %{city: "some city", country: "some country", institution_name: "some institution_name"}
-    @update_attrs %{city: "some updated city", country: "some updated country", institution_name: "some updated institution_name"}
+    @valid_attrs %{
+      city: "some city",
+      country: "some country",
+      institution_name: "some institution_name"
+    }
+    @update_attrs %{
+      city: "some updated city",
+      country: "some updated country",
+      institution_name: "some updated institution_name"
+    }
     @invalid_attrs %{city: nil, country: nil, institution_name: nil}
 
     def education_fixture(attrs \\ %{}) do
@@ -211,7 +219,9 @@ defmodule Hounddy.ContentTest do
     end
 
     test "create_candidate_education/1 with valid data creates a candidate_education" do
-      assert {:ok, %Candidate_education{} = candidate_education} = Content.create_candidate_education(@valid_attrs)
+      assert {:ok, %Candidate_education{} = candidate_education} =
+               Content.create_candidate_education(@valid_attrs)
+
       assert candidate_education.completed_at == 42
     end
 
@@ -221,20 +231,31 @@ defmodule Hounddy.ContentTest do
 
     test "update_candidate_education/2 with valid data updates the candidate_education" do
       candidate_education = candidate_education_fixture()
-      assert {:ok, %Candidate_education{} = candidate_education} = Content.update_candidate_education(candidate_education, @update_attrs)
+
+      assert {:ok, %Candidate_education{} = candidate_education} =
+               Content.update_candidate_education(candidate_education, @update_attrs)
+
       assert candidate_education.completed_at == 43
     end
 
     test "update_candidate_education/2 with invalid data returns error changeset" do
       candidate_education = candidate_education_fixture()
-      assert {:error, %Ecto.Changeset{}} = Content.update_candidate_education(candidate_education, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Content.update_candidate_education(candidate_education, @invalid_attrs)
+
       assert candidate_education == Content.get_candidate_education!(candidate_education.id)
     end
 
     test "delete_candidate_education/1 deletes the candidate_education" do
       candidate_education = candidate_education_fixture()
-      assert {:ok, %Candidate_education{}} = Content.delete_candidate_education(candidate_education)
-      assert_raise Ecto.NoResultsError, fn -> Content.get_candidate_education!(candidate_education.id) end
+
+      assert {:ok, %Candidate_education{}} =
+               Content.delete_candidate_education(candidate_education)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Content.get_candidate_education!(candidate_education.id)
+      end
     end
 
     test "change_candidate_education/1 returns a candidate_education changeset" do
@@ -246,8 +267,18 @@ defmodule Hounddy.ContentTest do
   describe "experiences" do
     alias Hounddy.Content.Experience
 
-    @valid_attrs %{company_name: "some company_name", date_from: "some date_from", date_to: "some date_to", description: "some description"}
-    @update_attrs %{company_name: "some updated company_name", date_from: "some updated date_from", date_to: "some updated date_to", description: "some updated description"}
+    @valid_attrs %{
+      company_name: "some company_name",
+      date_from: "some date_from",
+      date_to: "some date_to",
+      description: "some description"
+    }
+    @update_attrs %{
+      company_name: "some updated company_name",
+      date_from: "some updated date_from",
+      date_to: "some updated date_to",
+      description: "some updated description"
+    }
     @invalid_attrs %{company_name: nil, date_from: nil, date_to: nil, description: nil}
 
     def experience_fixture(attrs \\ %{}) do
@@ -283,7 +314,10 @@ defmodule Hounddy.ContentTest do
 
     test "update_experience/2 with valid data updates the experience" do
       experience = experience_fixture()
-      assert {:ok, %Experience{} = experience} = Content.update_experience(experience, @update_attrs)
+
+      assert {:ok, %Experience{} = experience} =
+               Content.update_experience(experience, @update_attrs)
+
       assert experience.company_name == "some updated company_name"
       assert experience.date_from == "some updated date_from"
       assert experience.date_to == "some updated date_to"

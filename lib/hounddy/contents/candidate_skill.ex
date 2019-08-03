@@ -1,4 +1,4 @@
-defmodule Hounddy.Content.Candidate_skill do
+defmodule Hounddy.Contents.Candidate_skill do
   use Ecto.Schema
   import Ecto.Changeset
 

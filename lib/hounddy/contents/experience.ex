@@ -1,4 +1,4 @@
-defmodule Hounddy.Content.Experience do
+defmodule Hounddy.Contents.Experience do
   use Ecto.Schema
   import Ecto.Changeset
 

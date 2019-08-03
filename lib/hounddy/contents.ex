@@ -1,12 +1,12 @@
-defmodule Hounddy.Content do
+defmodule Hounddy.Contents do
   @moduledoc """
-  The Content context.
+  The Contents context.
   """
 
   import Ecto.Query, warn: false
   alias Hounddy.Repo
 
-  alias Hounddy.Content.Skill
+  alias Hounddy.Contents.Skill
 
   @doc """
   Returns the list of skills.
@@ -102,7 +102,7 @@ defmodule Hounddy.Content do
     Skill.changeset(skill, %{})
   end
 
-  alias Hounddy.Content.Career
+  alias Hounddy.Contents.Career
 
   @doc """
   Returns the list of careers.
@@ -198,7 +198,7 @@ defmodule Hounddy.Content do
     Career.changeset(career, %{})
   end
 
-  alias Hounddy.Content.Education
+  alias Hounddy.Contents.Education
 
   @doc """
   Returns the list of educations.
@@ -294,7 +294,7 @@ defmodule Hounddy.Content do
     Education.changeset(education, %{})
   end
 
-  alias Hounddy.Content.Candidate_education
+  alias Hounddy.Contents.Candidate_education
 
   @doc """
   Returns the list of candidate_educations.
@@ -390,7 +390,7 @@ defmodule Hounddy.Content do
     Candidate_education.changeset(candidate_education, %{})
   end
 
-  alias Hounddy.Content.Experience
+  alias Hounddy.Contents.Experience
 
   @doc """
   Returns the list of experiences.
