@@ -7,7 +7,7 @@ defmodule Hounddy.Contents.Experience do
     field :date_from, :string
     field :date_to, :string
     field :description, :string
-    field :candidate_id, :id
+    belongs_to :candidate, Hounddy.Profiles.Candidate
 
     timestamps()
   end
@@ -15,7 +15,7 @@ defmodule Hounddy.Contents.Experience do
   @doc false
   def changeset(experience, attrs) do
     experience
-    |> cast(attrs, [:company_name, :date_from, :date_to, :description])
-    |> validate_required([:company_name, :date_from, :date_to, :description])
+    |> cast(attrs, [:company_name, :date_from, :date_to, :description, :candidate_id])
+    |> validate_required([:company_name, :date_from, :date_to, :description, :candidate_id])
   end
 end

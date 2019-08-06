@@ -8,6 +8,8 @@ defmodule Hounddy.Accounts.User do
     field :phone_number, :string
     field :pic_url, :string
     field :username, :string
+    has_one(:candidate, Hounddy.Profiles.Candidate)
+    has_one(:recruiter, Hounddy.Profiles.Recruiter)
 
     timestamps()
   end

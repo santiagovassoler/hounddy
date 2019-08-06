@@ -6,7 +6,7 @@ defmodule Hounddy.Contents.Education do
     field :city, :string
     field :country, :string
     field :institution_name, :string
-
+    many_to_many :candidate, Hounddy.Profiles.Candidate, join_through: "candidate_educations"
     timestamps()
   end
 

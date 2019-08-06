@@ -8,7 +8,11 @@ defmodule Hounddy.Profiles.Candidate do
     field :country, :string
     field :gender, :string
     field :video_url, :string
-    field :user_id, :id
+    belongs_to :user, Hounddy.Profiles.User
+    has_many :experience, Hounddy.Contents.Experience
+
+    many_to_many :candidate_education, Hounddy.Contents.Education,
+      join_through: "candidate_educations"
 
     timestamps()
   end
@@ -16,8 +20,8 @@ defmodule Hounddy.Profiles.Candidate do
   @doc false
   def changeset(candidate, attrs) do
     candidate
-    |> cast(attrs, [:gender, :about_me, :city, :country, :video_url])
-    |> validate_required([:gender, :about_me, :city, :country, :video_url])
+    |> cast(attrs, [:gender, :about_me, :city, :country, :video_url, :user_id])
+    |> validate_required([:gender, :about_me, :city, :country, :video_url, :user_id])
     |> unique_constraint(:user_id)
   end
 end

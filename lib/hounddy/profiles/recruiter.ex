@@ -3,7 +3,7 @@ defmodule Hounddy.Profiles.Recruiter do
   import Ecto.Changeset
 
   schema "recruiters" do
-    field :user_id, :id
+    belongs_to :user, Hounddy.Profiles.User
     field :company_id, :id
 
     timestamps()
@@ -12,8 +12,8 @@ defmodule Hounddy.Profiles.Recruiter do
   @doc false
   def changeset(recruiter, attrs) do
     recruiter
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:user_id])
+    |> validate_required([user_id])
     |> unique_constraint(:user_id)
   end
 end
