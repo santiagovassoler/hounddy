@@ -4,8 +4,8 @@ defmodule Hounddy.Profiles.Recruiter do
 
   schema "recruiters" do
     belongs_to :user, Hounddy.Profiles.User
-    field :company_id, :id
-
+    has_one :company, Hounddy.Profiles.Company
+    has_many :job, Hounddy.Jobs.Job
     timestamps()
   end
 

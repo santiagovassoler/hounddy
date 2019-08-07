@@ -11,8 +11,17 @@ defmodule Hounddy.Profiles.Candidate do
     belongs_to :user, Hounddy.Profiles.User
     has_many :experience, Hounddy.Contents.Experience
 
+    many_to_many :candidate_career, Hounddy.Contents.Career,
+      join_through: "candidate_careers",
+      on_replace: :delete
+
     many_to_many :candidate_education, Hounddy.Contents.Education,
-      join_through: "candidate_educations"
+      join_through: "candidate_educations",
+      on_replace: :delete
+
+    many_to_many :candidate_skill, Hounddy.Contents.Skill,
+      join_through: "candidate_skills",
+      on_replace: :delete
 
     timestamps()
   end

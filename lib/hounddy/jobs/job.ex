@@ -6,14 +6,14 @@ defmodule Hounddy.Jobs.Job do
     field :description, :string
     field :status, :string
     field :recruiter_id, :id
-
+    belongs_to :recruiter, Hounddy.Profiles.Recruiter
     timestamps()
   end
 
   @doc false
   def changeset(job, attrs) do
     job
-    |> cast(attrs, [:description, :status])
-    |> validate_required([:description, :status])
+    |> cast(attrs, [:description, :status, :recruiter_id])
+    |> validate_required([:description, :status, :recruiter_id])
   end
 end

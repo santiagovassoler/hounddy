@@ -4,7 +4,7 @@ defmodule Hounddy.Contents.Skill do
 
   schema "skills" do
     field :skill, :string
-
+    many_to_many :candidate, Hounddy.Profiles.Candidate, join_through: "candidate_skill"
     timestamps()
   end
 
