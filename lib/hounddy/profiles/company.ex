@@ -3,6 +3,7 @@ defmodule Hounddy.Profiles.Company do
   import Ecto.Changeset
 
   schema "companies" do
+    belongs_to :recruiter, Hounddy.Profiles.Recruiter
     field :name, :string
     field :website_url, :string
 

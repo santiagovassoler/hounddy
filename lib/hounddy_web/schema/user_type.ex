@@ -1,4 +1,4 @@
-defmodule HounddyWeb.Schema.Types.Usertype do
+defmodule HounddyWeb.Schema.Types.UserType do
   use Absinthe.Schema.Notation
 
   object :user_type do

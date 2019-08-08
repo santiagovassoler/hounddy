@@ -8,7 +8,7 @@ defmodule Hounddy.Profiles.Candidate do
     field :country, :string
     field :gender, :string
     field :video_url, :string
-    belongs_to :user, Hounddy.Profiles.User
+    belongs_to :user, Hounddy.Accounts.User
     has_many :experience, Hounddy.Contents.Experience
 
     many_to_many :candidate_career, Hounddy.Contents.Career,

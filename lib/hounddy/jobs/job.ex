@@ -5,7 +5,6 @@ defmodule Hounddy.Jobs.Job do
   schema "jobs" do
     field :description, :string
     field :status, :string
-    field :recruiter_id, :id
     belongs_to :recruiter, Hounddy.Profiles.Recruiter
     timestamps()
   end
