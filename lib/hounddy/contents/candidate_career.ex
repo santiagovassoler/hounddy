@@ -3,8 +3,8 @@ defmodule Hounddy.Contents.Candidate_career do
   import Ecto.Changeset
 
   schema "candidate_careers" do
-    field :candidate_id, :id
-    field :career_id, :id
+    belongs_to :candidate, Hounddy.Profiles.Candidate
+    belongs_to :carrer, Hounddy.Contents.Career
 
     timestamps()
   end

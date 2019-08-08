@@ -3,8 +3,8 @@ defmodule Hounddy.Contents.Candidate_skill do
   import Ecto.Changeset
 
   schema "candidate_skills" do
-    field :candidate_id, :id
-    field :skill_id, :id
+    belongs_to :candidate, Hounddy.Profiles.Candidate
+    belongs_to :skill, Hounddy.Contents.Skill
 
     timestamps()
   end

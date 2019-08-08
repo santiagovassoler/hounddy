@@ -4,8 +4,8 @@ defmodule Hounddy.Contents.Candidate_education do
 
   schema "candidate_educations" do
     field :completed_at, :integer
-    field :candidate_id, :id
-    field :education_id, :id
+    belongs_to :candidate, Hounddy.Profiles.Candidate
+    belongs_to :education, Hounddy.Contents.Education
 
     timestamps()
   end
