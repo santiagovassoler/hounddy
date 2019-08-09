@@ -4,4 +4,5 @@ defmodule HounddyWeb.Schema.Types do
   alias HounddyWeb.Schema.Types
 
   import_types(Types.UserType)
+  import_types(Types.CandidateType)
 end
