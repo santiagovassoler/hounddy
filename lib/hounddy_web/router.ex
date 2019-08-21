@@ -5,6 +5,10 @@ defmodule HounddyWeb.Router do
     plug :accepts, ["json"]
   end
 
+  if Mix.env() == :dev do
+    forward "/sent-emails", Bamboo.SentEmailViewerPlug
+  end
+
   scope "/api" do
     pipe_through :api
 

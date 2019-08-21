@@ -1,13 +1,14 @@
-defmodule Hounddy.Contents.Experience do
+defmodule Hounddy.Profiles.Experience do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Profiles.Candidate
 
   schema "experiences" do
     field :company_name, :string
     field :date_from, :string
     field :date_to, :string
     field :description, :string
-    belongs_to :candidate, Hounddy.Profiles.Candidate
+    belongs_to :candidate, Candidate
 
     timestamps()
   end

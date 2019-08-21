@@ -1,10 +1,11 @@
-defmodule Hounddy.Contents.Candidate_career do
+defmodule Hounddy.Profiles.Candidate_career do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Profiles.{Candidate, Career}
 
   schema "candidate_careers" do
-    belongs_to :candidate, Hounddy.Profiles.Candidate
-    belongs_to :carrer, Hounddy.Contents.Career
+    belongs_to :candidate, Candidate
+    belongs_to :carrer, Career
 
     timestamps()
   end

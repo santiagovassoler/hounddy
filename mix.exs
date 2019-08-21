@@ -34,6 +34,7 @@ defmodule Hounddy.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.4.7"},
+      {:phoenix_html, "~> 2.13.3"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
@@ -43,7 +44,8 @@ defmodule Hounddy.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
-      {:absinthe_ecto, "~> 0.1.3"}
+      {:absinthe_ecto, "~> 0.1.3"},
+      {:bamboo, "~> 1.3"}
     ]
   end
 

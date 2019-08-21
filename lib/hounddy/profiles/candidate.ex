@@ -1,6 +1,8 @@
 defmodule Hounddy.Profiles.Candidate do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Accounts.User
+  alias Hounddy.Profiles.{Experience, Career, Education, Skill}
 
   schema "candidates" do
     field :about_me, :string
@@ -8,18 +10,18 @@ defmodule Hounddy.Profiles.Candidate do
     field :country, :string
     field :gender, :string
     field :video_url, :string
-    belongs_to :user, Hounddy.Accounts.User
-    has_many :experience, Hounddy.Contents.Experience
+    belongs_to :user, User
+    has_many :experience, Experience
 
-    many_to_many :candidate_career, Hounddy.Contents.Career,
+    many_to_many :candidate_career, Career,
       join_through: "candidate_careers",
       on_replace: :delete
 
-    many_to_many :candidate_education, Hounddy.Contents.Education,
+    many_to_many :candidate_education, Education,
       join_through: "candidate_educations",
       on_replace: :delete
 
-    many_to_many :candidate_skill, Hounddy.Contents.Skill,
+    many_to_many :candidate_skill, Skill,
       join_through: "candidate_skills",
       on_replace: :delete
 

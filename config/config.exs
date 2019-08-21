@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+config :hounddy, Hounddy.Mailer, adapter: Bamboo.LocalAdapter
+
 config :hounddy,
   ecto_repos: [Hounddy.Repo]
 

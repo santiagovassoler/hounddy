@@ -1,9 +1,10 @@
 defmodule Hounddy.Profiles.Company do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Accounts.User
 
   schema "companies" do
-    belongs_to :recruiter, Hounddy.Profiles.Recruiter
+    belongs_to :user, User
     field :name, :string
     field :website_url, :string
 

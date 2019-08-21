@@ -1,0 +1,2 @@
+<p><a href="http://localhost:4000/api/graphiql/login/<%= @token %>">Click here to login</a></p>
+<p>This link is valid for 30 minutes.</p>

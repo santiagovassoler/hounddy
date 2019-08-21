@@ -102,99 +102,99 @@ defmodule Hounddy.Jobs do
     Job.changeset(job, %{})
   end
 
-  alias Hounddy.Jobs.Recruiter_job
+  alias Hounddy.Jobs.User_job
 
   @doc """
-  Returns the list of recruiter_jobs.
+  Returns the list of user_jobs.
 
   ## Examples
 
-      iex> list_recruiter_jobs()
-      [%Recruiter_job{}, ...]
+      iex> list_user_jobs()
+      [%User_job{}, ...]
 
   """
-  def list_recruiter_jobs do
-    Repo.all(Recruiter_job)
+  def list_user_jobs do
+    Repo.all(User_job)
   end
 
   @doc """
-  Gets a single recruiter_job.
+  Gets a single user_job.
 
-  Raises `Ecto.NoResultsError` if the Recruiter job does not exist.
+  Raises `Ecto.NoResultsError` if the User job does not exist.
 
   ## Examples
 
-      iex> get_recruiter_job!(123)
-      %Recruiter_job{}
+      iex> get_user_job!(123)
+      %User_job{}
 
-      iex> get_recruiter_job!(456)
+      iex> get_user_job!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_recruiter_job!(id), do: Repo.get!(Recruiter_job, id)
+  def get_user_job!(id), do: Repo.get!(User_job, id)
 
   @doc """
-  Creates a recruiter_job.
+  Creates a user_job.
 
   ## Examples
 
-      iex> create_recruiter_job(%{field: value})
-      {:ok, %Recruiter_job{}}
+      iex> create_user_job(%{field: value})
+      {:ok, %User_job{}}
 
-      iex> create_recruiter_job(%{field: bad_value})
+      iex> create_user_job(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_recruiter_job(attrs \\ %{}) do
-    %Recruiter_job{}
-    |> Recruiter_job.changeset(attrs)
+  def create_user_job(attrs \\ %{}) do
+    %User_job{}
+    |> User_job.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a recruiter_job.
+  Updates a user_job.
 
   ## Examples
 
-      iex> update_recruiter_job(recruiter_job, %{field: new_value})
-      {:ok, %Recruiter_job{}}
+      iex> update_user_job(user_job, %{field: new_value})
+      {:ok, %User_job{}}
 
-      iex> update_recruiter_job(recruiter_job, %{field: bad_value})
+      iex> update_user_job(user_job, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_recruiter_job(%Recruiter_job{} = recruiter_job, attrs) do
-    recruiter_job
-    |> Recruiter_job.changeset(attrs)
+  def update_user_job(%User_job{} = user_job, attrs) do
+    user_job
+    |> User_job.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a Recruiter_job.
+  Deletes a User_job.
 
   ## Examples
 
-      iex> delete_recruiter_job(recruiter_job)
-      {:ok, %Recruiter_job{}}
+      iex> delete_user_job(user_job)
+      {:ok, %User_job{}}
 
-      iex> delete_recruiter_job(recruiter_job)
+      iex> delete_user_job(user_job)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_recruiter_job(%Recruiter_job{} = recruiter_job) do
-    Repo.delete(recruiter_job)
+  def delete_user_job(%User_job{} = user_job) do
+    Repo.delete(user_job)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking recruiter_job changes.
+  Returns an `%Ecto.Changeset{}` for tracking user_job changes.
 
   ## Examples
 
-      iex> change_recruiter_job(recruiter_job)
-      %Ecto.Changeset{source: %Recruiter_job{}}
+      iex> change_user_job(user_job)
+      %Ecto.Changeset{source: %User_job{}}
 
   """
-  def change_recruiter_job(%Recruiter_job{} = recruiter_job) do
-    Recruiter_job.changeset(recruiter_job, %{})
+  def change_user_job(%User_job{} = user_job) do
+    User_job.changeset(user_job, %{})
   end
 end

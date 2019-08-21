@@ -1,10 +1,11 @@
-defmodule Hounddy.Contents.Skill do
+defmodule Hounddy.Profiles.Skill do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Profiles.Candidate
 
   schema "skills" do
     field :skill, :string
-    many_to_many :candidate, Hounddy.Profiles.Candidate, join_through: "candidate_skill"
+    many_to_many :candidate, Candidate, join_through: "candidate_skill"
     timestamps()
   end
 

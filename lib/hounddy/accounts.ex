@@ -5,8 +5,10 @@ defmodule Hounddy.Accounts do
 
   import Ecto.Query, warn: false
   alias Hounddy.Repo
-
   alias Hounddy.Accounts.User
+  alias Hounddy.Accounts.Login_request
+  alias Ecto.Multi
+  alias Hounddy.Accounts.Tokens
 
   @doc """
   Returns the list of users.
@@ -36,6 +38,19 @@ defmodule Hounddy.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Gets a single user by their email.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+      iex> get_user_by_email!("user@gmail.com")
+      %User{}
+      iex> get_user_by_email!("notuser@gmail.com")
+      ** (Ecto.NoResultsError)
+  """
+  def get_user_by_email!(email), do: Repo.get_by(User, email: email)
 
   @doc """
   Creates a user.
@@ -229,22 +244,52 @@ defmodule Hounddy.Accounts do
   """
   def get_login_request!(id), do: Repo.get!(Login_request, id)
 
-  @doc """
-  Creates a login_request.
+  # @doc """
+  # Creates a login_request.
 
-  ## Examples
+  # ## Examples
 
-      iex> create_login_request(%{field: value})
-      {:ok, %Login_request{}}
+  #     iex> create_login_request(%{field: value})
+  #     {:ok, %Login_request{}}
 
-      iex> create_login_request(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+  #     iex> create_login_request(%{field: bad_value})
+  #     {:error, %Ecto.Changeset{}}
 
-  """
-  def create_login_request(attrs \\ %{}) do
-    %Login_request{}
-    |> Login_request.changeset(attrs)
-    |> Repo.insert()
+  # """
+  # def create_login_request(attrs \\ %{}) do
+  #   %Login_request{}
+  #   |> Login_request.changeset(attrs)
+  #   |> Repo.insert()
+  # end
+  def create_login_request(email) do
+    with user when not is_nil(user) <- get_user_by_email!(email) do
+      {:ok, changes} =
+        Multi.new()
+        |> Multi.delete_all(:delete_login_requests, Ecto.assoc(user, :login_request))
+        |> Multi.insert(:login_request, Ecto.build_assoc(user, :login_request))
+        |> Repo.transaction()
+
+      {:ok, changes, user}
+    else
+      nil -> {:error, :not_found}
+    end
+  end
+
+  def redeem(token) do
+    with {:ok, id} <- Tokens.verify_login_request(token),
+         login_request when not is_nil(login_request) <- Repo.get(Login_request, id),
+         %{user: user} <- Repo.preload(login_request, :user) do
+      Multi.new()
+      |> Multi.delete_all(:delete_login_requests, Ecto.assoc(user, :login_request))
+      |> Multi.insert(:session, Ecto.build_assoc(user, :sessions))
+      |> Repo.transaction()
+    else
+      nil ->
+        {:error, :not_found}
+
+      {:error, :expired} ->
+        {:error, :expired}
+    end
   end
 
   @doc """

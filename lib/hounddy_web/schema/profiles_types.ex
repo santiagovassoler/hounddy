@@ -1,4 +1,4 @@
-defmodule HounddyWeb.Schema.Types.CandidateType do
+defmodule HounddyWeb.Schema.ProfilesTypes do
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: Hounddy.Repo
 
@@ -18,6 +18,15 @@ defmodule HounddyWeb.Schema.Types.CandidateType do
     field :country, :string
     field :gender, :string
     field :video_url, :string
-    field :user_id, :id
+  end
+
+  object :recruiter_type do
+    field :id, :id
+    field :user, :user_type, resolve: assoc(:user)
+    #  field :company, :company_type, resolve: assoc(:company)
+    #  field :job, :job_type, resolve: assoc(:job)
+  end
+
+  input_object :recruiter_input_type do
   end
 end

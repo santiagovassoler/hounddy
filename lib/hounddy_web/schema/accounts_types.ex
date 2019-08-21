@@ -1,5 +1,7 @@
-defmodule HounddyWeb.Schema.Types.UserType do
+defmodule HounddyWeb.Schema.AccountsTypes do
   use Absinthe.Schema.Notation
+
+  use Absinthe.Ecto, repo: Hounddy.Repo
 
   object :user_type do
     field :id, :id
@@ -16,5 +18,13 @@ defmodule HounddyWeb.Schema.Types.UserType do
     field :full_name, :string
     field :phone_number, :string
     field :pic_url, :string
+  end
+
+  object :login_request_type do
+    field :user, :user_type, resolve: assoc(:user)
+  end
+
+  input_object :login_request_input_type do
+    field :email, :string
   end
 end

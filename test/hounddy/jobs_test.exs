@@ -120,4 +120,61 @@ defmodule Hounddy.JobsTest do
       assert %Ecto.Changeset{} = Jobs.change_recruiter_job(recruiter_job)
     end
   end
+
+  describe "user_jobs" do
+    alias Hounddy.Jobs.User_job
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def user_job_fixture(attrs \\ %{}) do
+      {:ok, user_job} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Jobs.create_user_job()
+
+      user_job
+    end
+
+    test "list_user_jobs/0 returns all user_jobs" do
+      user_job = user_job_fixture()
+      assert Jobs.list_user_jobs() == [user_job]
+    end
+
+    test "get_user_job!/1 returns the user_job with given id" do
+      user_job = user_job_fixture()
+      assert Jobs.get_user_job!(user_job.id) == user_job
+    end
+
+    test "create_user_job/1 with valid data creates a user_job" do
+      assert {:ok, %User_job{} = user_job} = Jobs.create_user_job(@valid_attrs)
+    end
+
+    test "create_user_job/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Jobs.create_user_job(@invalid_attrs)
+    end
+
+    test "update_user_job/2 with valid data updates the user_job" do
+      user_job = user_job_fixture()
+      assert {:ok, %User_job{} = user_job} = Jobs.update_user_job(user_job, @update_attrs)
+    end
+
+    test "update_user_job/2 with invalid data returns error changeset" do
+      user_job = user_job_fixture()
+      assert {:error, %Ecto.Changeset{}} = Jobs.update_user_job(user_job, @invalid_attrs)
+      assert user_job == Jobs.get_user_job!(user_job.id)
+    end
+
+    test "delete_user_job/1 deletes the user_job" do
+      user_job = user_job_fixture()
+      assert {:ok, %User_job{}} = Jobs.delete_user_job(user_job)
+      assert_raise Ecto.NoResultsError, fn -> Jobs.get_user_job!(user_job.id) end
+    end
+
+    test "change_user_job/1 returns a user_job changeset" do
+      user_job = user_job_fixture()
+      assert %Ecto.Changeset{} = Jobs.change_user_job(user_job)
+    end
+  end
 end

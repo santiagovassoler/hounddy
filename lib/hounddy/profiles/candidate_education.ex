@@ -1,11 +1,12 @@
-defmodule Hounddy.Contents.Candidate_education do
+defmodule Hounddy.Profiles.Candidate_education do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Profiles.{Candidate, Education}
 
   schema "candidate_educations" do
     field :completed_at, :integer
-    belongs_to :candidate, Hounddy.Profiles.Candidate
-    belongs_to :education, Hounddy.Contents.Education
+    belongs_to :candidate, Candidate
+    belongs_to :education, Education
 
     timestamps()
   end

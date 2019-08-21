@@ -1,9 +1,10 @@
 defmodule Hounddy.Accounts.Login_request do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Accounts.User
 
   schema "login_requests" do
-    field :user_id, :id
+    belongs_to :user, User
 
     timestamps()
   end

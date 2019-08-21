@@ -3,7 +3,7 @@ defmodule Hounddy.Accounts.Session do
   import Ecto.Changeset
 
   schema "sessions" do
-    field :user_id, :id
+    belongs_to :user, Hounddy.Accounts.User
 
     timestamps()
   end

@@ -1,12 +1,13 @@
-defmodule Hounddy.Contents.Education do
+defmodule Hounddy.Profiles.Education do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Hounddy.Profiles.Candidate
 
   schema "educations" do
     field :city, :string
     field :country, :string
     field :institution_name, :string
-    many_to_many :candidate, Hounddy.Profiles.Candidate, join_through: "candidate_educations"
+    many_to_many :candidate, Candidate, join_through: "candidate_educations"
     timestamps()
   end
 
