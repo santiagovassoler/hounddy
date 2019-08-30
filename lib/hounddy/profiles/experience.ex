@@ -17,6 +17,6 @@ defmodule Hounddy.Profiles.Experience do
   def changeset(experience, attrs) do
     experience
     |> cast(attrs, [:company_name, :date_from, :date_to, :description, :candidate_id])
-    |> validate_required([:company_name, :date_from, :date_to, :description, :candidate_id])
+    |> validate_required([:company_name, :date_from, :date_to, :description])
   end
 end

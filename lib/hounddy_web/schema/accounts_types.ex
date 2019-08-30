@@ -1,10 +1,20 @@
 defmodule HounddyWeb.Schema.AccountsTypes do
   use Absinthe.Schema.Notation
-
   use Absinthe.Ecto, repo: Hounddy.Repo
+  alias HounddyWeb.Resolvers.Accounts
+  alias HounddyWeb.Schema.Middleware
 
-  object :user_type do
+  object :user do
     field :id, :id
+    field :email, :string
+    field :full_name, :string
+    field :username, :string
+    field :phone_number, :string
+    field :pic_url, :string
+    field :role, :string
+  end
+
+  object :update_user_params do
     field :email, :string
     field :full_name, :string
     field :username, :string
@@ -12,19 +22,22 @@ defmodule HounddyWeb.Schema.AccountsTypes do
     field :pic_url, :string
   end
 
-  input_object :user_input_type do
-    field :username, non_null(:string)
-    field :email, non_null(:string)
-    field :full_name, :string
-    field :phone_number, :string
-    field :pic_url, :string
+  object :account_queries do
+    field :users, list_of(:user) do
+      middleware(Middleware.Authorize, "admin")
+      resolve(&Accounts.users/3)
+    end
   end
 
-  object :login_request_type do
-    field :user, :user_type, resolve: assoc(:user)
-  end
+  object :account_mutations do
+    field :login, :user do
+      arg(:token, non_null(:string))
+      resolve(&Accounts.login/3)
+    end
 
-  input_object :login_request_input_type do
-    field :email, :string
+    field :create_token, :user do
+      arg(:email, non_null(:string))
+      resolve(&Accounts.create_token/3)
+    end
   end
 end

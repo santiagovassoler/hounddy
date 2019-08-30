@@ -24,6 +24,20 @@ defmodule Hounddy.Profiles do
   @doc """
   Gets a single candidate.
 
+  ## Examples
+
+      iex> get_candidate(123)
+      %Candidate{}
+
+      iex> get_candidate(456)
+      nil
+
+  """
+  def get_candidate(id), do: Repo.get(Candidate, id)
+
+  @doc """
+  Gets a single candidate.
+
   Raises `Ecto.NoResultsError` if the Candidate does not exist.
 
   ## Examples
@@ -49,7 +63,10 @@ defmodule Hounddy.Profiles do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_candidate(attrs \\ %{}) do
+
+  def create_candidate(attrs \\ %{}, user_id) do
+    attrs = attrs |> Map.put(:user_id, user_id)
+
     %Candidate{}
     |> Candidate.changeset(attrs)
     |> Repo.insert()
@@ -67,6 +84,8 @@ defmodule Hounddy.Profiles do
       {:error, %Ecto.Changeset{}}
 
   """
+  def update_candidate(nil, _), do: {:error, :not_found}
+
   def update_candidate(%Candidate{} = candidate, attrs) do
     candidate
     |> Candidate.changeset(attrs)

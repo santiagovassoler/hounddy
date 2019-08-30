@@ -4,12 +4,12 @@ defmodule Hounddy.Email do
 
   alias Hounddy.Accounts.Tokens
 
-  def login_request(user, login_request) do
+  def login_request(token, user) do
     new_email()
     |> to(user.email)
     |> from("support@example.com")
     |> subject("Log in to Hounddy")
-    |> assign(:token, Tokens.sign_login_request(login_request))
+    |> assign(:token, token)
     |> render(:login_request)
   end
 end

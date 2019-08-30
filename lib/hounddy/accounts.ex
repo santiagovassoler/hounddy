@@ -8,7 +8,6 @@ defmodule Hounddy.Accounts do
   alias Hounddy.Accounts.User
   alias Hounddy.Accounts.Login_request
   alias Ecto.Multi
-  alias Hounddy.Accounts.Tokens
 
   @doc """
   Returns the list of users.
@@ -256,40 +255,10 @@ defmodule Hounddy.Accounts do
   #     {:error, %Ecto.Changeset{}}
 
   # """
-  # def create_login_request(attrs \\ %{}) do
-  #   %Login_request{}
-  #   |> Login_request.changeset(attrs)
-  #   |> Repo.insert()
-  # end
-  def create_login_request(email) do
-    with user when not is_nil(user) <- get_user_by_email!(email) do
-      {:ok, changes} =
-        Multi.new()
-        |> Multi.delete_all(:delete_login_requests, Ecto.assoc(user, :login_request))
-        |> Multi.insert(:login_request, Ecto.build_assoc(user, :login_request))
-        |> Repo.transaction()
-
-      {:ok, changes, user}
-    else
-      nil -> {:error, :not_found}
-    end
-  end
-
-  def redeem(token) do
-    with {:ok, id} <- Tokens.verify_login_request(token),
-         login_request when not is_nil(login_request) <- Repo.get(Login_request, id),
-         %{user: user} <- Repo.preload(login_request, :user) do
-      Multi.new()
-      |> Multi.delete_all(:delete_login_requests, Ecto.assoc(user, :login_request))
-      |> Multi.insert(:session, Ecto.build_assoc(user, :sessions))
-      |> Repo.transaction()
-    else
-      nil ->
-        {:error, :not_found}
-
-      {:error, :expired} ->
-        {:error, :expired}
-    end
+  def create_login_request(attrs \\ %{}) do
+    %Login_request{}
+    |> Login_request.changeset(attrs)
+    |> Repo.insert()
   end
 
   @doc """
@@ -337,5 +306,46 @@ defmodule Hounddy.Accounts do
   """
   def change_login_request(%Login_request{} = login_request) do
     Login_request.changeset(login_request, %{})
+  end
+
+  #############################################################################################
+  def create_auth_token(user) do
+    HounddyWeb.Authentication.sign(%{role: user.role, id: user.id})
+  end
+
+  def provide_token(nil), do: {:error, :not_found}
+
+  def provide_token(email) when is_binary(email) do
+    get_user_by_email!(email)
+    |> send_token()
+  end
+
+  # def provide_token(user = %User{}) do
+  #   send_token(user)
+  # end
+
+  defp send_token(nil), do: {:error, :not_found}
+
+  defp send_token(user) do
+    user
+    |> create_auth_token()
+    |> Hounddy.Email.login_request(user)
+    |> Hounddy.Mailer.deliver_now()
+
+    {:ok, user}
+  end
+
+  def verify_token(nil), do: {:error, :invalid}
+
+  def verify_token(token) do
+    case HounddyWeb.Authentication.verify(token) do
+      {:ok, data} -> {:ok, data}
+      {:error, :invalid} -> {:error, "invalid"}
+      {:error, :expired} -> {:error, "expired"}
+    end
+  end
+
+  def lookup(role, id) do
+    Repo.get_by(User, role: to_string(role), id: id)
   end
 end

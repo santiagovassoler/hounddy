@@ -11,6 +11,7 @@ defmodule Hounddy.Profiles.Candidate do
     field :gender, :string
     field :video_url, :string
     belongs_to :user, User
+
     has_many :experience, Experience
 
     many_to_many :candidate_career, Career,
@@ -32,7 +33,7 @@ defmodule Hounddy.Profiles.Candidate do
   def changeset(candidate, attrs) do
     candidate
     |> cast(attrs, [:gender, :about_me, :city, :country, :video_url, :user_id])
-    |> validate_required([:gender, :about_me, :city, :country, :video_url, :user_id])
-    |> unique_constraint(:user_id)
+    |> unique_constraint(:user_id, name: :candidates_user_id_index)
+    |> foreign_key_constraint(:users, name: :candidates_user_id_fkey)
   end
 end
