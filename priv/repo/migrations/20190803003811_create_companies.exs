@@ -3,7 +3,7 @@ defmodule Hounddy.Repo.Migrations.CreateCompanies do
 
   def change do
     create table(:companies) do
-      add :name, :string
+      add :name, :string, null: false
       add :website_url, :string
       add :user_id, references(:users, on_delete: :delete_all), null: false
       timestamps()

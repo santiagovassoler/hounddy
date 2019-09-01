@@ -16,6 +16,7 @@ defmodule Hounddy.Profiles.Education do
   @doc false
   def changeset(education, attrs) do
     education
+    |> validate_required([:institution_name])
     |> cast(attrs, [:institution_name, :city, :country, :completed_at, :degree])
   end
 end

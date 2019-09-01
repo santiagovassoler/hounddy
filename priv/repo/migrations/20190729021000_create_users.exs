@@ -5,7 +5,7 @@ defmodule Hounddy.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :username, :string
       add :full_name, :string
-      add :email, :string
+      add :email, :string, null: false
       add :phone_number, :string
       add :pic_url, :string
       add :role, :string

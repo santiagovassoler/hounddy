@@ -5,8 +5,8 @@ defmodule Hounddy.Profiles.Experience do
 
   schema "experiences" do
     field :company_name, :string
-    field :date_from, :string
-    field :date_to, :string
+    field :start_date, :string
+    field :end_date, :string
     field :description, :string
     belongs_to :candidate, Candidate
 
@@ -16,7 +16,7 @@ defmodule Hounddy.Profiles.Experience do
   @doc false
   def changeset(experience, attrs) do
     experience
-    |> cast(attrs, [:company_name, :date_from, :date_to, :description, :candidate_id])
-    |> validate_required([:company_name, :date_from, :date_to, :description])
+    |> cast(attrs, [:company_name, :start_date, :end_date, :description, :candidate_id])
+    |> validate_required([:company_name])
   end
 end

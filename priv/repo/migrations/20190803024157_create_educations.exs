@@ -3,7 +3,7 @@ defmodule Hounddy.Repo.Migrations.CreateEducations do
 
   def change do
     create table(:educations) do
-      add :institution_name, :string
+      add :institution_name, :string, fnull: false
       add :city, :string
       add :country, :string
       add :degree, :string

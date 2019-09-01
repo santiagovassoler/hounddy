@@ -5,11 +5,11 @@ defmodule Hounddy.Accounts.User do
   alias Hounddy.Profiles.{Candidate, Company}
 
   schema "users" do
-    field :email, :string
+    field :email, :string, unique: true
     field :full_name, :string
     field :phone_number, :string
     field :pic_url, :string
-    field :username, :string
+    field :username, :string, unique: true
     field :role, :string
 
     has_one(:candidate, Candidate)

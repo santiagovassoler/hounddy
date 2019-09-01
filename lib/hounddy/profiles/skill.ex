@@ -14,5 +14,6 @@ defmodule Hounddy.Profiles.Skill do
     skill
     |> cast(attrs, [:skill])
     |> validate_required([:skill])
+    |> unique_constraint(:candidates_id_skills, name: :candidates_id_skills_index)
   end
 end
