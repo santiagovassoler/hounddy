@@ -2,8 +2,6 @@ defmodule Hounddy.Email do
   use Bamboo.Phoenix, view: HounddyWeb.EmailView
   import Bamboo.Email
 
-  alias Hounddy.Accounts.Tokens
-
   def login_request(token, user) do
     new_email()
     |> to(user.email)

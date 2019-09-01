@@ -8,11 +8,10 @@ defmodule Hounddy.Repo.Migrations.CreateUsers do
       add :email, :string
       add :phone_number, :string
       add :pic_url, :string
-
+      add :role, :string
       timestamps()
     end
 
-    create unique_index(:users, [:username])
-    create unique_index(:users, [:email])
+    create unique_index(:users, [:username, :email])
   end
 end

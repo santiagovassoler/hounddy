@@ -8,7 +8,7 @@ defmodule Hounddy.Repo.Migrations.CreateCandidates do
       add :city, :string
       add :country, :string
       add :video_url, :string
-      add :user_id, references(:users, on_delete: :delete_all)
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end

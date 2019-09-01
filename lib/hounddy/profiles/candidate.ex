@@ -10,22 +10,12 @@ defmodule Hounddy.Profiles.Candidate do
     field :country, :string
     field :gender, :string
     field :video_url, :string
+
     belongs_to :user, User
-
     has_many :experience, Experience
-
-    many_to_many :candidate_career, Career,
-      join_through: "candidate_careers",
-      on_replace: :delete
-
-    many_to_many :candidate_education, Education,
-      join_through: "candidate_educations",
-      on_replace: :delete
-
-    many_to_many :candidate_skill, Skill,
-      join_through: "candidate_skills",
-      on_replace: :delete
-
+    has_many :career, Career
+    has_many :education, Education
+    has_many :skill, Skill
     timestamps()
   end
 

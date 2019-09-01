@@ -6,7 +6,9 @@ defmodule HounddyWeb.Resolvers.Accounts do
   end
 
   def create_user(_, %{input: input}, _) do
-    {:ok, Accounts.create_user(input)}
+    with {:ok, user} <- Accounts.create_user(input) do
+      {:ok, user}
+    end
   end
 
   def create_token(_, %{email: email}, _) do

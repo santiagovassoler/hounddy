@@ -1,8 +1,7 @@
 defmodule HounddyWeb.Resolvers.Profiles do
   alias Hounddy.Profiles
-  alias HounddyWeb.ErrorHelper
 
-  def candidates(_, _, %{context: %{current_user: current_user}}) do
+  def candidates(_, _, _) do
     {:ok, Profiles.list_candidates()}
   end
 
@@ -12,7 +11,7 @@ defmodule HounddyWeb.Resolvers.Profiles do
     end
   end
 
-  def update_candidate(_, %{id: id, input: input}, %{context: %{current_user: current_user}}) do
+  def update_candidate(_, %{id: id, input: input}, _) do
     candidate = Profiles.get_candidate!(id)
 
     with {:ok, candidate} <- Profiles.update_candidate(candidate, input) do
@@ -20,7 +19,7 @@ defmodule HounddyWeb.Resolvers.Profiles do
     end
   end
 
-  def delete_candidate(_, %{id: id}, %{context: %{current_user: current_user}}) do
+  def delete_candidate(_, %{id: id}, _) do
     candidate = Profiles.get_candidate!(id)
 
     with {:ok, candidate} <- Profiles.delete_candidate(candidate) do

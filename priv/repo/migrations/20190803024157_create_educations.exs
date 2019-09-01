@@ -6,10 +6,9 @@ defmodule Hounddy.Repo.Migrations.CreateEducations do
       add :institution_name, :string
       add :city, :string
       add :country, :string
-
+      add :degree, :string
+      add :candidate_id, references(:candidates, on_delete: :nothing), null: false
       timestamps()
     end
-
-    create unique_index(:educations, [:institution_name, :city, :country], name: :your_index_name)
   end
 end

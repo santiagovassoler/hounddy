@@ -5,7 +5,7 @@ defmodule Hounddy.Profiles.Career do
 
   schema "careers" do
     field :career, :string
-    many_to_many :candidate, Candidate, join_through: "candidate_careers"
+    belongs_to :candidate, Candidate
 
     timestamps()
   end
