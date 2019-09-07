@@ -20,8 +20,9 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
   end
 
   object :skill do
+    field :id, :id
     field :skill, :string
-    field :candidate, list_of(:candidate)
+    field :candidate, :candidate, resolve: assoc(:candidate)
   end
 
   object :experience do
@@ -38,7 +39,8 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :country, :string
     field :institution_name, :string
     field :degree, :string
-    field :candidate, list_of(:candidate)
+    field :completed_at, :string
+    field :candidate, :candidate, resolve: assoc(:candidate)
   end
 
   object :companie do
@@ -49,7 +51,7 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
 
   object :career do
     field :career, :string
-    field :candidate, list_of(:candidate)
+    field :candidate, :candidate, resolve: assoc(:candidate)
   end
 
   input_object :candidate_params do
@@ -58,6 +60,33 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :country, :string
     field :gender, :string
     field :video_url, :string
+  end
+
+  input_object :career_params do
+    field :career, :string
+    field :candidate_id, :id
+  end
+
+  input_object :education_params do
+    field :city, :string
+    field :country, :string
+    field :institution_name, :string
+    field :degree, :string
+    field :completed_at, :string
+    field :candidate_id, :id
+  end
+
+  input_object :experience_params do
+    field :company_name, :string
+    field :start_date, :string
+    field :end_date, :string
+    field :description, :string
+    field :candidate_id, :id
+  end
+
+  input_object :skill_params do
+    field :skill, :string
+    field :candidate_id, :id
   end
 
   object :profile_queries do
@@ -85,6 +114,46 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
       arg(:id, non_null(:id))
       # middleware(Middleware.Authorize, :any)
       resolve(&Profiles.delete_candidate/3)
+    end
+
+    field :create_career, :career do
+      arg(:input, non_null(:career_params))
+      resolve(&Profiles.create_career/3)
+    end
+
+    field :delete_career, :career do
+      arg(:id, non_null(:id))
+      resolve(&Profiles.delete_career/3)
+    end
+
+    field :create_education, :education do
+      arg(:input, non_null(:education_params))
+      resolve(&Profiles.create_education/3)
+    end
+
+    field :delete_education, :education do
+      arg(:id, non_null(:id))
+      resolve(&Profiles.delete_education/3)
+    end
+
+    field :create_experience, :experience do
+      arg(:input, non_null(:experience_params))
+      resolve(&Profiles.create_experience/3)
+    end
+
+    field :delete_experience, :career do
+      arg(:id, non_null(:id))
+      resolve(&Profiles.delete_experience/3)
+    end
+
+    field :create_skill, :skill do
+      arg(:input, non_null(:skill_params))
+      resolve(&Profiles.create_skill/3)
+    end
+
+    field :delete_skill, :skill do
+      arg(:id, non_null(:id))
+      resolve(&Profiles.delete_skill/3)
     end
   end
 end

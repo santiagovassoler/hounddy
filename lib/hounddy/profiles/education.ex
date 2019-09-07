@@ -7,7 +7,7 @@ defmodule Hounddy.Profiles.Education do
     field :city, :string
     field :country, :string
     field :institution_name, :string
-    field :completed_at, :integer
+    field :completed_at, :string
     field :degree, :string
     belongs_to :candidate, Candidate
     timestamps()
@@ -16,7 +16,7 @@ defmodule Hounddy.Profiles.Education do
   @doc false
   def changeset(education, attrs) do
     education
+    |> cast(attrs, [:institution_name, :city, :country, :completed_at, :degree, :candidate_id])
     |> validate_required([:institution_name])
-    |> cast(attrs, [:institution_name, :city, :country, :completed_at, :degree])
   end
 end

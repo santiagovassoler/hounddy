@@ -14,7 +14,7 @@ defmodule Hounddy.Profiles.Company do
   @doc false
   def changeset(company, attrs) do
     company
-    |> cast(attrs, [:name, :website_url])
+    |> cast(attrs, [:name, :website_url, :user_id])
     |> validate_required([:name])
   end
 end

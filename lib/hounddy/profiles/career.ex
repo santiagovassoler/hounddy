@@ -13,7 +13,8 @@ defmodule Hounddy.Profiles.Career do
   @doc false
   def changeset(career, attrs) do
     career
-    |> cast(attrs, [:career])
+    |> cast(attrs, [:career, :candidate_id])
     |> validate_required([:career])
+    |> unique_constraint(:career, name: :careers_career_candidate_id_index)
   end
 end

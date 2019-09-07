@@ -6,63 +6,9 @@ defmodule Hounddy.Profiles do
   import Ecto.Query, warn: false
   alias Hounddy.Repo
 
-  alias Hounddy.Profiles.Candidate
+  alias Hounddy.Profiles.{Candidate, Company, Career, Education, Experience, Skill}
 
-  @doc """
-  Returns the list of candidates.
-
-  ## Examples
-
-      iex> list_candidates()
-      [%Candidate{}, ...]
-
-  """
-  def list_candidates do
-    Repo.all(Candidate)
-  end
-
-  @doc """
-  Gets a single candidate.
-
-  ## Examples
-
-      iex> get_candidate(123)
-      %Candidate{}
-
-      iex> get_candidate(456)
-      nil
-
-  """
-  def get_candidate(id), do: Repo.get(Candidate, id)
-
-  @doc """
-  Gets a single candidate.
-
-  Raises `Ecto.NoResultsError` if the Candidate does not exist.
-
-  ## Examples
-
-      iex> get_candidate!(123)
-      %Candidate{}
-
-      iex> get_candidate!(456)
-      ** (Ecto.NoResultsError)
-
-  """
   def get_candidate!(id), do: Repo.get!(Candidate, id)
-
-  @doc """
-  Creates a candidate.
-
-  ## Examples
-
-      iex> create_candidate(%{field: value})
-      {:ok, %Candidate{}}
-
-      iex> create_candidate(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
 
   def create_candidate(attrs \\ %{}, user_id) do
     attrs = attrs |> Map.put(:user_id, user_id)
@@ -72,148 +18,107 @@ defmodule Hounddy.Profiles do
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a candidate.
-
-  ## Examples
-
-      iex> update_candidate(candidate, %{field: new_value})
-      {:ok, %Candidate{}}
-
-      iex> update_candidate(candidate, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_candidate(nil, _), do: {:error, :not_found}
-
   def update_candidate(%Candidate{} = candidate, attrs) do
     candidate
     |> Candidate.changeset(attrs)
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a Candidate.
-
-  ## Examples
-
-      iex> delete_candidate(candidate)
-      {:ok, %Candidate{}}
-
-      iex> delete_candidate(candidate)
-      {:error, %Ecto.Changeset{}}
-
-  """
   def delete_candidate(%Candidate{} = candidate) do
     Repo.delete(candidate)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking candidate changes.
-
-  ## Examples
-
-      iex> change_candidate(candidate)
-      %Ecto.Changeset{source: %Candidate{}}
-
-  """
   def change_candidate(%Candidate{} = candidate) do
     Candidate.changeset(candidate, %{})
   end
 
-  alias Hounddy.Profiles.Company
-
-  @doc """
-  Returns the list of companies.
-
-  ## Examples
-
-      iex> list_companies()
-      [%Company{}, ...]
-
-  """
-  def list_companies do
-    Repo.all(Company)
+  def list_candidates do
+    Repo.all(Candidate)
   end
 
-  @doc """
-  Gets a single company.
-
-  Raises `Ecto.NoResultsError` if the Company does not exist.
-
-  ## Examples
-
-      iex> get_company!(123)
-      %Company{}
-
-      iex> get_company!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_company!(id), do: Repo.get!(Company, id)
-
-  @doc """
-  Creates a company.
-
-  ## Examples
-
-      iex> create_company(%{field: value})
-      {:ok, %Company{}}
-
-      iex> create_company(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_company(attrs \\ %{}) do
     %Company{}
     |> Company.changeset(attrs)
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a company.
-
-  ## Examples
-
-      iex> update_company(company, %{field: new_value})
-      {:ok, %Company{}}
-
-      iex> update_company(company, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_company(%Company{} = company, attrs) do
     company
     |> Company.changeset(attrs)
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a Company.
-
-  ## Examples
-
-      iex> delete_company(company)
-      {:ok, %Company{}}
-
-      iex> delete_company(company)
-      {:error, %Ecto.Changeset{}}
-
-  """
   def delete_company(%Company{} = company) do
     Repo.delete(company)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking company changes.
-
-  ## Examples
-
-      iex> change_company(company)
-      %Ecto.Changeset{source: %Company{}}
-
-  """
   def change_company(%Company{} = company) do
     Company.changeset(company, %{})
+  end
+
+  def list_companies do
+    Repo.all(Company)
+  end
+
+  def create_career(attrs \\ %{}, user) do
+    Candidate
+    |> Repo.get_by!(user_id: user.id)
+    |> Ecto.build_assoc(:career)
+    |> Career.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_career(id) do
+    Career
+    |> Repo.get!(id)
+    |> Repo.delete()
+  end
+
+  def create_education(attrs \\ %{}, user) do
+    Candidate
+    |> Repo.get_by!(user_id: user.id)
+    |> Ecto.build_assoc(:education)
+    |> Education.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_education() do
+  end
+
+  def delete_education(id) do
+    Education
+    |> Repo.get!(id)
+    |> Repo.delete()
+  end
+
+  def create_experience(attrs \\ %{}, user) do
+    Candidate
+    |> Repo.get_by!(user_id: user.id)
+    |> Ecto.build_assoc(:experience)
+    |> Experience.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_experience() do
+  end
+
+  def delete_experience(id) do
+    Experience
+    |> Repo.get!(id)
+    |> Repo.delete()
+  end
+
+  def create_skill(attrs \\ %{}, user) do
+    Candidate
+    |> Repo.get_by!(user_id: user.id)
+    |> Ecto.build_assoc(:skill)
+    |> Skill.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_skill(id) do
+    Skill
+    |> Repo.get!(id)
+    |> Repo.delete()
   end
 end
