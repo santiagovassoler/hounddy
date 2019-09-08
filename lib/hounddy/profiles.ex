@@ -82,7 +82,11 @@ defmodule Hounddy.Profiles do
     |> Repo.insert()
   end
 
-  def update_education() do
+  def update_education(id, attrs \\ {}) do
+    Education
+    |> Repo.get!(id)
+    |> Education.changeset(attrs)
+    |> Repo.update()
   end
 
   def delete_education(id) do
@@ -99,7 +103,11 @@ defmodule Hounddy.Profiles do
     |> Repo.insert()
   end
 
-  def update_experience() do
+  def update_experience(id, attrs \\ %{}) do
+    Experience
+    |> Repo.get!(id)
+    |> Experience.changeset(attrs)
+    |> Repo.update()
   end
 
   def delete_experience(id) do

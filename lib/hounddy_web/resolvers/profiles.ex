@@ -54,8 +54,11 @@ defmodule HounddyWeb.Resolvers.Profiles do
     end
   end
 
-  # def update_education(_, %{id: id, input: input}, _) do
-  # end
+  def update_education(_, %{id: id, input: input}, _) do
+    with {:ok, education} <- Profiles.update_education(id, input) do
+      {:ok, education}
+    end
+  end
 
   def delete_education(_, %{id: id}, _) do
     with {:ok, education} <- Profiles.delete_education(id) do
@@ -69,8 +72,11 @@ defmodule HounddyWeb.Resolvers.Profiles do
     end
   end
 
-  # def update_experience(_, %{id: id, input: input}, _) do
-  # end
+  def update_experience(_, %{id: id, input: input}, _) do
+    with {:ok, experience} <- Profiles.update_experience(id, input) do
+      {:ok, experience}
+    end
+  end
 
   def delete_experience(_, %{id: id}, _) do
     with {:ok, experience} <- Profiles.delete_experience(id) do

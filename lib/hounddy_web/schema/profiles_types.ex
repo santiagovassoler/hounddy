@@ -131,6 +131,12 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
       resolve(&Profiles.create_education/3)
     end
 
+    field :update_education, :education do
+      arg(:id, non_null(:id))
+      arg(:input, non_null(:education_params))
+      resolve(&Profiles.update_education/3)
+    end
+
     field :delete_education, :education do
       arg(:id, non_null(:id))
       resolve(&Profiles.delete_education/3)
@@ -139,6 +145,12 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :create_experience, :experience do
       arg(:input, non_null(:experience_params))
       resolve(&Profiles.create_experience/3)
+    end
+
+    field :update_experience, :experience do
+      arg(:id, non_null(:id))
+      arg(:input, non_null(:experience_params))
+      resolve(&Profiles.update_experience/3)
     end
 
     field :delete_experience, :career do
