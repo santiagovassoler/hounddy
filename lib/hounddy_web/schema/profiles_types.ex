@@ -64,7 +64,6 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
 
   input_object :career_params do
     field :career, :string
-    # field :candidate_id, :id
   end
 
   input_object :education_params do
@@ -73,7 +72,6 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :institution_name, :string
     field :degree, :string
     field :completed_at, :string
-    # field :candidate_id, :id
   end
 
   input_object :experience_params do
@@ -81,12 +79,10 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :start_date, :string
     field :end_date, :string
     field :description, :string
-    # field :candidate_id, :id
   end
 
   input_object :skill_params do
     field :skill, :string
-    # field :candidate_id, :id
   end
 
   input_object :company_params do
