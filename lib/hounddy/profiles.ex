@@ -36,20 +36,25 @@ defmodule Hounddy.Profiles do
     Repo.all(Candidate)
   end
 
-  def create_company(attrs \\ %{}) do
+  def create_company(attrs \\ %{}, user) do
+    attrs = attrs |> Map.put(:user_id, user.id)
+
     %Company{}
     |> Company.changeset(attrs)
     |> Repo.insert()
   end
 
-  def update_company(%Company{} = company, attrs) do
-    company
+  def update_company(id, attrs) do
+    Company
+    |> Repo.get!(id)
     |> Company.changeset(attrs)
     |> Repo.update()
   end
 
-  def delete_company(%Company{} = company) do
-    Repo.delete(company)
+  def delete_company(id) do
+    Company
+    |> Repo.get!(id)
+    |> Repo.delete()
   end
 
   def change_company(%Company{} = company) do

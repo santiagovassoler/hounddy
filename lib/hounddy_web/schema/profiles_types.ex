@@ -43,7 +43,7 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :candidate, :candidate, resolve: assoc(:candidate)
   end
 
-  object :companie do
+  object :company do
     field :name, :string
     field :website_url, :string
     field :user, :user, resolve: assoc(:user)
@@ -64,7 +64,7 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
 
   input_object :career_params do
     field :career, :string
-    field :candidate_id, :id
+    # field :candidate_id, :id
   end
 
   input_object :education_params do
@@ -73,7 +73,7 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :institution_name, :string
     field :degree, :string
     field :completed_at, :string
-    field :candidate_id, :id
+    # field :candidate_id, :id
   end
 
   input_object :experience_params do
@@ -81,12 +81,17 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :start_date, :string
     field :end_date, :string
     field :description, :string
-    field :candidate_id, :id
+    # field :candidate_id, :id
   end
 
   input_object :skill_params do
     field :skill, :string
-    field :candidate_id, :id
+    # field :candidate_id, :id
+  end
+
+  input_object :company_params do
+    field :name, :string
+    field :website_url, :string
   end
 
   object :profile_queries do
@@ -166,6 +171,22 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
     field :delete_skill, :skill do
       arg(:id, non_null(:id))
       resolve(&Profiles.delete_skill/3)
+    end
+
+    field :create_company, :company do
+      arg(:input, non_null(:company_params))
+      resolve(&Profiles.create_company/3)
+    end
+
+    field :update_company, :company do
+      arg(:id, non_null(:id))
+      arg(:input, non_null(:company_params))
+      resolve(&Profiles.update_company/3)
+    end
+
+    field :delete_company, :company do
+      arg(:id, non_null(:id))
+      resolve(&Profiles.delete_company/3)
     end
   end
 end

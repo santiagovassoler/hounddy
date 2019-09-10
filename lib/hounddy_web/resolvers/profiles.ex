@@ -39,14 +39,23 @@ defmodule HounddyWeb.Resolvers.Profiles do
     end
   end
 
-  # def create_company(_, %{input: input}, %{context: %{current_user: current_user}}) do
-  # end
+  def create_company(_, %{input: input}, %{context: %{current_user: current_user}}) do
+    with {:ok, company} <- Profiles.create_company(input, current_user) do
+      {:ok, company}
+    end
+  end
 
-  # def update_company(_, %{id: id, input: input}, _) do
-  # end
+  def update_company(_, %{id: id, input: input}, _) do
+    with {:ok, company} <- Profiles.update_company(id, input) do
+      {:ok, company}
+    end
+  end
 
-  # def delete_company(_, %{id: id}, _) do
-  # end
+  def delete_company(_, %{id: id}, _) do
+    with {:ok, company} <- Profiles.delete_company(id) do
+      {:ok, company}
+    end
+  end
 
   def create_education(_, %{input: input}, %{context: %{current_user: current_user}}) do
     with {:ok, education} <- Profiles.create_education(input, current_user) do
