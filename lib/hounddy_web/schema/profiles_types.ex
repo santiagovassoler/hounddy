@@ -119,6 +119,7 @@ defmodule HounddyWeb.Schema.ProfilesTypes do
 
     field :create_career, :career do
       arg(:input, non_null(:career_params))
+      # middleware(Middleware.Authorize, :"candidate")
       resolve(&Profiles.create_career/3)
     end
 
