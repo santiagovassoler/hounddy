@@ -26,7 +26,9 @@ defmodule Hounddy.Profiles do
   end
 
   def delete_candidate(id) do
-    Repo.delete(candidate)
+    Candidate
+    |> Repo.get!(id)
+    |> Repo.delete()
   end
 
   def list_candidates do
