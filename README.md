@@ -1,4 +1,4 @@
-# Hounddy
+# Hounddy (WIP)
 
 To start your Phoenix server:
 
